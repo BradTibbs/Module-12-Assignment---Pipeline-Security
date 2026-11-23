@@ -1,0 +1,14 @@
+title = "Module 12 secrets scan with an explicit fake lab fixture"
+
+[extend]
+useDefault = true
+
+# The published AWS example is intentionally not a real credential.
+# Default rules can suppress example values. This extra rule makes the lab
+# fixture detectable without replacing the normal production secret rules.
+[[rules]]
+id = "lab-aws-public-example"
+description = "Assignment fixture only: AWS published example access key"
+regex = '''\bAKIAIOSFODNN7EXAMPLE\b'''
+path = '''(^|/)config\.py$'''
+keywords = ["AKIAIOSFODNN7EXAMPLE"]

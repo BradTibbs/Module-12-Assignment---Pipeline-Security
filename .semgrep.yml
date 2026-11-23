@@ -1,0 +1,12 @@
+rules:
+  - id: flask-request-to-shell
+    message: User-controlled Flask query input reaches a shell command. Validate the host and use an argument list with shell=False.
+    languages: [python]
+    severity: ERROR
+    mode: taint
+    pattern-sources:
+      - pattern: request.args.get(...)
+    pattern-sinks:
+      - pattern: subprocess.check_output(..., shell=True, ...)
+    metadata:
+      cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command"
